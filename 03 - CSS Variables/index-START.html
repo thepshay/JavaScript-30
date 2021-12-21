@@ -21,6 +21,21 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    :root {
+      --base: yellow;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background-color: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl{
+      color: var(--base);
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -45,6 +60,26 @@
   </style>
 
   <script>
+    const input = document.querySelectorAll('.controls input');
+    
+    function handleUpdate() {
+      // console.log(this.dataset); //data set will get all data attr
+      const suffix = this.dataset.sizing || '';
+      // console.log(this)
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+
+    // listen for change in sliding bar
+    // adds change when finish click
+    // not having this would make color bar not respond
+    input.forEach(input => {
+      input.addEventListener('change', handleUpdate) 
+    });
+
+    // adds change with mouse movement
+    input.forEach(input => {
+      input.addEventListener('mousemove', handleUpdate)
+    });
   </script>
 
 </body>
